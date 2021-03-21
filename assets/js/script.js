@@ -1,14 +1,14 @@
 
 //basic function to get lyrics
-function getLyrics() {
-	fetch('https://api.lyrics.ovh/v1/Nirvana/Smells Like Teen Spirit')
+function getLyrics(artistName, songTitle) {
+	fetch(`https://api.lyrics.ovh/v1/${artistName}/${songTitle}`)
 		.then((res) => res.json())
 		.then((data) => console.log(data));
 }
 
 // queries discogs API by artist name to get artist resource url
-async function searchDiscogsArtistName() {
-	const response = await fetch(`https://api.discogs.com/database/search?q=Nirvana&type=artist&key=${discogsKey}&secret=${discogsSecret}`)
+async function searchDiscogsArtistName(searchQuery) {
+	const response = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`)
 	const data = await response.json()
 	return data.results[0].resource_url
 }
