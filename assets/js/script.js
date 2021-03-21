@@ -1,4 +1,28 @@
+//classes to construct to hold information
+class artist {
+    constructor(tName, tMembers, tID, tReleases) {
+        this.name = tName,
+        this.members = tMembers,
+        this.idNum = tID,
+        this.releases = tReleases
+    }
+}
 
+class album {
+    constructor(tTitle, tYear, tTrackList) {
+        this.title = tName,
+        this.year = tYear,
+        this.tracklist = tTrackList
+    }
+}
+
+class song {
+    constructor(tTitle, tComposer, tLyrics) {
+        this.title = tTitle,
+        this.composer = tComposer,
+        this.lyrics = tLyrics
+    }
+}
 //basic function to get lyrics
 function getLyrics(artistName, songTitle) {
 	fetch(`https://api.lyrics.ovh/v1/${artistName}/${songTitle}`)
