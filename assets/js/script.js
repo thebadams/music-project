@@ -19,6 +19,29 @@ class artist {
         profileEl.textContent = this.profileInfo;
         artistInfoDiv.append(nameEl, thumbnailEl, profileEl)
     }
+    displayMembersList() {
+        let memberListUl = document.querySelector("#member-list");
+        let memberListHeading = document.createElement("h4")
+        memberListHeading.textContent = "Members"
+        memberListUl.append(memberListHeading)
+        for(var i = 0; i < this.members.length; i++){
+            let memberListItem = document.createElement("li");
+            memberListItem.textContent = this.members[i].name
+            memberListUl.append(memberListItem)
+        }
+    }
+    displayDiscography() {
+        let discography = document.querySelector("#discography");
+        let discographyHeading = document.createElement("h4")
+        discographyHeading.textContent = "Discography"
+        discography.append(discographyHeading);
+        for(var i = 0; i < this.releases.length; i++){
+            let discographyListItem = document.createElement("li");
+            discographyListItem.textContent = this.releases[i].title;
+            discographyListItem.setAttribute("data-url", this.releases[i].resource_url)
+            discography.append(discographyListItem)
+        }
+    }
 
 }
 
@@ -87,6 +110,10 @@ let mainReleases = []
     }
    artistInfo.releases = mainReleases;
    artistInfo.displayInfo()
+   if(artistInfo.members){
+   artistInfo.displayMembersList()
+   }
+   artistInfo.displayDiscography()
    return artistInfo;
     
     // while(data3.pagination.urls)
