@@ -1,5 +1,7 @@
 //classes to construct to hold information
+//define class to hold artist information
 class artist {
+    //constructs artist object
     constructor(tName, tThumbnailImg, tURL, tInformation, tMembers, tReleaseURL, tReleases) {
         this.name = tName,
         this.thumbnailImg = tThumbnailImg,
@@ -9,6 +11,7 @@ class artist {
         this.releasesURL = tReleaseURL
         this.releases = tReleases
     }
+    //method to display information
     displayInfo() {
         let artistInfoDiv = document.querySelector("#artist-info")
         let nameEl = document.createElement("p")
@@ -19,6 +22,7 @@ class artist {
         profileEl.textContent = this.profileInfo;
         artistInfoDiv.append(nameEl, thumbnailEl, profileEl)
     }
+    //method to display membersList
     displayMembersList() {
         let memberListUl = document.querySelector("#member-list");
         let memberListHeading = document.createElement("h4")
@@ -30,6 +34,7 @@ class artist {
             memberListUl.append(memberListItem)
         }
     }
+    //method to display discography
     displayDiscography() {
         let discography = document.querySelector("#discography");
         let discographyHeading = document.createElement("h4")
@@ -44,20 +49,22 @@ class artist {
     }
 
 }
+//class for album information
 
 class album {
-    constructor(tTitle, tYear, tTrackList, tURL) {
+    constructor(tTitle, tYear, tTrackList, tURL, tArtist) {
         this.title = tTitle,
         this.year = tYear,
-        this.trackList = tTrackList
-        this.URL = tURL
+        this.trackList = tTrackList,
+        this.URL = tURL,
+        this.artist = tArtist
     }
 }
-
+// class for song information
 class song {
-    constructor(tTitle, tComposer, tLyrics) {
+    constructor(tTitle, tArtist, tLyrics) {
         this.title = tTitle,
-        this.composer = tComposer,
+        this.artist = tArtist,
         this.lyrics = tLyrics
     }
 }
@@ -71,31 +78,31 @@ function getLyrics(artistName, songTitle) {
 //rework discogs api requests
 async function getArtistInfo(searchQuery) {
     try {
-    let response1 = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`);
-    let data = await response1.json()
+    let response1 = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`); //fetches data
+    let data = await response1.json() // converts response to json
     //data returns array
     // grab artist thumbnail image (data[i].thumb)
     // grab artist name (data[i].title)
     // grab artist url_resource (data[i].url_resource)
     // let artistInfo = new artist(data[i].title, data[i].thumb, datai[i].resource_url);
     // return artistInfo;
-    let artistInfo = new artist(data.results[0].title, data.results[0].thumb, data.results[0].resource_url);
-    let response2 = await fetch(artistInfo.URL);
-    let data2 = await response2.json();
-    artistInfo.releasesURL = data2.releases_url
-    artistInfo.members = data2.members
-    artistInfo.profileInfo = data2.profile
-    let response3 = await fetch(`${artistInfo.releasesURL}?sort=year&sort_order=asc&per_page=500`);
-    let data3 = await response3.json();
+    let artistInfo = new artist(data.results[0].title, data.results[0].thumb, data.results[0].resource_url); //creates new artist object
+    let response2 = await fetch(artistInfo.URL); // make second fetch request
+    let data2 = await response2.json(); // converts second request
+    artistInfo.releasesURL = data2.releases_url// sets releases url on the artist info object
+    artistInfo.members = data2.members// sets members on the artist info object
+    artistInfo.profileInfo = data2.profile// sets information text to object
+    let response3 = await fetch(`${artistInfo.releasesURL}?sort=year&sort_order=asc&per_page=500`);// make third request
+    let data3 = await response3.json(); // convert request
     console.log(data3.releases)
-    let releasesArray = []
-    for(var i = 0; i < data3.releases.length; i++){
-        releasesArray.push(data3.releases[i]);
+    let releasesArray = [] // create an empty array
+    for(var i = 0; i < data3.releases.length; i++){ 
+        releasesArray.push(data3.releases[i]); // push releases into the array
     }
     console.log(data3.pagination.pages!==1)
-    if(data3.pagination.pages !== 1){
+    if(data3.pagination.pages !== 1){ // if theres more than 1 page in the response
         for(var j = 2; j <= data3.pagination.pages; j++){
-            let response4 = await fetch(`${artistInfo.releasesURL}?sort=year&sort_order=asc&per_page=500&page=${j}`);
+            let response4 = await fetch(`${artistInfo.releasesURL}?sort=year&sort_order=asc&per_page=500&page=${j}`); // make a 4th request for as many pages as are left
             let data4 = await response4.json();
             for(var k = 0; k < data4.releases.length; k++){
                 releasesArray.push(data4.releases[k]);
@@ -103,18 +110,18 @@ async function getArtistInfo(searchQuery) {
         }
 
     }
-let mainReleases = []
+let mainReleases = [] // filter releases array
     for(var l = 0; l < releasesArray.length; l++){
         if(releasesArray[l].main_release){
             mainReleases.push(releasesArray[l]);
         }
     }
-   artistInfo.releases = mainReleases;
-   artistInfo.displayInfo()
-   if(artistInfo.members){
+   artistInfo.releases = mainReleases; // set main releases array to the artist Info object
+   artistInfo.displayInfo() // display info
+   if(artistInfo.members){  //if there are members, display members list
    artistInfo.displayMembersList()
    }
-   artistInfo.displayDiscography()
+   artistInfo.displayDiscography()// display discography information
    return artistInfo;
     
     // while(data3.pagination.urls)
@@ -127,31 +134,47 @@ let mainReleases = []
 
 // let discographyList = document.querySelector("#discography");
 
-async function getAlbumInfo(requestURL) {
+async function getAlbumInfo(requestURL) { 
     let response = await fetch(requestURL);
     let data = await response.json();
     let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url)
     return albumInfo
 };
 
-var discographyList = document.querySelector("#discography")
+var discographyList = document.querySelector("#discography") // grab discography empty div
 
-discographyList.addEventListener("click", async (event)=>{
-    if(event.target.matches("li")){
-        let requestURL = event.target.dataset.url;
-        let response =  await fetch(requestURL);
-        let data = await response.json()
-        let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url)
-        let titleEl = event.target;
-        let emptyUL = document.createElement("ul");
-        titleEl.append(emptyUL)
-        for(var i = 0; i < albumInfo.trackList.length; i++){
+discographyList.addEventListener("click", async (event)=>{ // add event listener
+    if(event.target.matches("li")){ // of event target matches li,
+        let requestURL = event.target.dataset.url; // get url off the object
+        let response =  await fetch(requestURL); // fetch
+        let data = await response.json() // convert
+        let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name) //create album object
+        let titleEl = event.target; // create title el
+        let emptyUL = document.createElement("ul"); // create empty ul
+        titleEl.append(emptyUL) // append
+        for(var i = 0; i < albumInfo.trackList.length; i++){ //loop through track list and create elements, appending to the empoty ul
             let trackLi = document.createElement("li");
             trackLi.textContent = albumInfo.trackList[i].title
+            trackLi.setAttribute("data-artist", albumInfo.artist)
+            trackLi.classList.add("track-item")
             emptyUL.append(trackLi)
         }
     }
 });
+//FIXME:
+discographyList.addEventListener("click", async (event)=>{ // same as above, this breaks things and I don't know why.
+    if(event.target.matches(".track-item")) {
+        let artistName = event.target.dataset.artist;
+        let songTitle = event.target.textContent;
+        let requestURL = `https://api.lyrics.ovh/v1/${artistName}/${songTitle}`;
+        let response = await fetch(requestURL);
+        let data = await response.json();
+        let songInfo = new song(songTitle, artistName, data.lyrics);
+        return songInfo
+    }
+})
+
+
 // queries discogs API by artist name to get artist resource url
 // async function searchDiscogsArtistName(searchQuery) {
 // 	const response = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`)
