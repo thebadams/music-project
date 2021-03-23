@@ -46,10 +46,11 @@ class artist {
 }
 
 class album {
-    constructor(tTitle, tYear, tTrackList) {
+    constructor(tTitle, tYear, tTrackList, tURL) {
         this.title = tTitle,
         this.year = tYear,
         this.tracklist = tTrackList
+        this.URL = tURL
     }
 }
 
@@ -123,6 +124,24 @@ let mainReleases = []
     }}
     
 }
+
+// let discographyList = document.querySelector("#discography");
+
+async function albumInfo(requestURL) {
+    let response = await fetch(requestURL);
+    let data = await response.json();
+    let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url)
+    return albumInfo
+}
+
+discographyList.addEventListener("click", (event)=>{
+    if(event.target.matches("li")){
+        var requestURL = event.target.dataset.url
+        let object = await getTrackList(requestURL)
+        console.log(object)
+        
+    }
+})
 
 // queries discogs API by artist name to get artist resource url
 // async function searchDiscogsArtistName(searchQuery) {
