@@ -49,7 +49,7 @@ class album {
     constructor(tTitle, tYear, tTrackList, tURL) {
         this.title = tTitle,
         this.year = tYear,
-        this.tracklist = tTrackList
+        this.trackList = tTrackList
         this.URL = tURL
     }
 }
@@ -127,22 +127,31 @@ let mainReleases = []
 
 // let discographyList = document.querySelector("#discography");
 
-async function albumInfo(requestURL) {
+async function getAlbumInfo(requestURL) {
     let response = await fetch(requestURL);
     let data = await response.json();
     let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url)
     return albumInfo
-}
+};
 
-discographyList.addEventListener("click", (event)=>{
+var discographyList = document.querySelector("#discography")
+
+discographyList.addEventListener("click", async (event)=>{
     if(event.target.matches("li")){
-        var requestURL = event.target.dataset.url
-        let object = await getTrackList(requestURL)
-        console.log(object)
-        
+        let requestURL = event.target.dataset.url;
+        let response =  await fetch(requestURL);
+        let data = await response.json()
+        let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url)
+        let titleEl = event.target;
+        let emptyUL = document.createElement("ul");
+        titleEl.append(emptyUL)
+        for(var i = 0; i < albumInfo.trackList.length; i++){
+            let trackLi = document.createElement("li");
+            trackLi.textContent = albumInfo.trackList[i].title
+            emptyUL.append(trackLi)
+        }
     }
-})
-
+});
 // queries discogs API by artist name to get artist resource url
 // async function searchDiscogsArtistName(searchQuery) {
 // 	const response = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`)
