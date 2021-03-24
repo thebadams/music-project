@@ -162,17 +162,17 @@ discographyList.addEventListener("click", async (event)=>{ // add event listener
     }
 });
 //FIXME:
-discographyList.addEventListener("click", async (event)=>{ // same as above, this breaks things and I don't know why.
-    if(event.target.matches(".track-item")) {
-        let artistName = event.target.dataset.artist;
-        let songTitle = event.target.textContent;
-        let requestURL = `https://api.lyrics.ovh/v1/${artistName}/${songTitle}`;
-        let response = await fetch(requestURL);
-        let data = await response.json();
-        let songInfo = new song(songTitle, artistName, data.lyrics);
-        return songInfo
-    }
-})
+// discographyList.addEventListener("click", async (event)=>{ // same as above, this breaks things and I don't know why.
+//     if(event.target.matches(".track-item")) {
+//         let artistName = event.target.dataset.artist;
+//         let songTitle = event.target.textContent;
+//         let requestURL = `https://api.lyrics.ovh/v1/${artistName}/${songTitle}`;
+//         let response = await fetch(requestURL);
+//         let data = await response.json();
+//         let songInfo = new song(songTitle, artistName, data.lyrics);
+//         return songInfo
+//     }
+// })
 
 
 // queries discogs API by artist name to get artist resource url
@@ -212,3 +212,27 @@ discographyList.addEventListener("click", async (event)=>{ // same as above, thi
 //searchDiscogs3
 //get artist releases
 //filter released by role = "Main" or type = master
+
+//modal logic
+let lyricsModalDismiss = document.querySelector(".lyrics-dismiss")
+
+lyricsModalDismiss.addEventListener("click", ()=>{
+    let lyricsModal = document.querySelector(".lyrics-modal");
+    lyricsModal.classList.remove("is-active");
+})
+
+async function displayLyrics(){
+    let lyricsModalContent = document.querySelector(".modal-card-body");
+    let lyricsModal = document.querySelector(".lyrics-modal");
+    let response = await fetch(`https://api.lyrics.ovh/v1/Billy Joel/Piano Man`);
+	let data = await response.json();
+    console.log(data.lyrics)
+    let regExp = /\r/;
+    let regExp2 = /\n/;
+    let lyricsArray = data.lyrics.split(regExp2)
+    console.log(lyricsArray)
+    let lyricsString = lyricsArray.join("<br>")
+    console.log(lyricsString)
+    lyricsModalContent.innerHTML = lyricsString;
+    lyricsModal.classList.add("is-active")
+}
