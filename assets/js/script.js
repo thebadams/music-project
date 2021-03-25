@@ -37,16 +37,24 @@ class artist {
 
     }
     //method to display discography
-    displayDiscography() {
-        let discography = document.querySelector("#discography");
-        let discographyHeading = document.createElement("h4")
-        discographyHeading.textContent = "Discography"
-        discography.append(discographyHeading);
-        for(var i = 0; i < this.releases.length; i++){
-            let discographyListItem = document.createElement("li");
-            discographyListItem.textContent = this.releases[i].title;
-            discographyListItem.setAttribute("data-url", this.releases[i].resource_url)
-            discography.append(discographyListItem)
+    displayDiscography(){
+        let tableHeaderRow = document.querySelector("#table-header-row");
+        let discographyContent = document.querySelector("#discography-content")
+        let tableHeaderTitle = document.createElement("th");
+        let tableHeaderYear = document.createElement("th");
+        tableHeaderTitle.textContent = "Title"
+        tableHeaderYear.textContent = "Year"
+        tableHeaderRow.append(tableHeaderTitle, tableHeaderYear);
+        for(var i = 0; i < this.releases.length; i++) {
+            let discographyListItem = document.createElement("tr")
+            discographyListItem.setAttribute("data-url", this.releases[i].resource_;url)
+            discographyListItem.classList.add("discography-item");
+            discographyContent.append(discographyListItem);
+            let discographyItemTitle = document.createElement("td");
+            let discographyItemYear = document.createElement("td");
+            discographyItemTitle.textContent = this.releases[i].title;
+            discographyItemYear.textContent = this.releases[i].year;
+            discographyListItem.append(discographyItemTitle, discographyItemYear);
         }
     }
 
