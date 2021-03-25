@@ -1,3 +1,6 @@
+//grab html elements
+let searchBtn = document.querySelector("#search-btn")
+
 //classes to construct to hold information
 //define class to hold artist information
 class Artist {
@@ -109,10 +112,17 @@ function getLyrics(artistName, songTitle) {
 		.then((data) => console.log(data));
 }
 
+//get search parameter
+function getParams() {
+    let searchQuery = location.search.replace("%20", " ");
+    getArtistInfo(searchQuery);
+    
+}
+getParams()
 //rework discogs api requests
 async function getArtistInfo(searchQuery) {
     try {
-    let response1 = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`); //fetches data
+    let response1 = await fetch(`https://api.discogs.com/database/search${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`); //fetches data
     let data = await response1.json() // converts response to json
     //data returns array
     // grab artist thumbnail image (data[i].thumb)
@@ -255,18 +265,3 @@ lyricsModalDismiss.addEventListener("click", ()=>{
     lyricsModal.classList.remove("is-active");
 })
 
-async function displayLyrics(){
-    let lyricsModalContent = document.querySelector(".modal-card-body");
-    let lyricsModal = document.querySelector(".lyrics-modal");
-    let response = await fetch(`https://api.lyrics.ovh/v1/Billy Joel/Piano Man`);
-	let data = await response.json();
-    console.log(data.lyrics)
-    let regExp = /\r/;
-    let regExp2 = /\n/;
-    let lyricsArray = data.lyrics.split(regExp2)
-    console.log(lyricsArray)
-    let lyricsString = lyricsArray.join("<br>")
-    console.log(lyricsString)
-    lyricsModalContent.innerHTML = lyricsString;
-    lyricsModal.classList.add("is-active")
-}
