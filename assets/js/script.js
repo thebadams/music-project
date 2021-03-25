@@ -50,12 +50,12 @@ class Artist {
         tableHeaderRow.append(tableHeaderTitle, tableHeaderYear);
         for(var i = 0; i < this.releases.length; i++) {
             let discographyListItem = document.createElement("tr")
-            discographyListItem.setAttribute("data-url", this.releases[i].resource_url)
             discographyListItem.classList.add("discography-item");
             discographyContent.append(discographyListItem);
             let discographyItemTitle = document.createElement("td");
             let discographyItemYear = document.createElement("td");
             discographyItemTitle.textContent = this.releases[i].title;
+            discographyItemTitle.setAttribute("data-url", this.releases[i].resource_url);
             discographyItemYear.textContent = this.releases[i].year;
             discographyListItem.append(discographyItemTitle, discographyItemYear);
         }
@@ -72,7 +72,7 @@ class Album {
         this.URL = tURL,
         this.artist = tArtist
     }
-    displayTrackList() {
+    displayTrackList(albumInfo) {
         let AlbumNameP = document.querySelector("#album-name");
         AlbumNameP.textContent = this.title;
         let trackListUl = document.querySelector("#track-list-content")
@@ -181,10 +181,18 @@ let mainReleases = [] // filter releases array
 async function getAlbumInfo(requestURL) { 
     let response = await fetch(requestURL);
     let data = await response.json();
-    let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url)
+    let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url)
+    albumInfo.displayTrackList(albumInfo);
     return albumInfo
 };
 
+let discographyContent = document.querySelector("#discography-content");
+discographyContent.addEventListener("click", (event)=>{
+    if(event.target.matches("td")) {
+        console.log("clicked")
+        getAlbumInfo(event.target.dataset.url)
+    }
+})
 // var discographyList = document.querySelector("#discography") // grab discography empty div
 
 // discographyList.addEventListener("click", async (event)=>{ // add event listener
