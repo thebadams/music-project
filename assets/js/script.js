@@ -23,27 +23,18 @@ class artist {
         artistInfoDiv.textContent = this.profileInfo;
 
     }
-    // displayInfo() {
-    //     let artistInfoDiv = document.querySelector("#artist-info")
-    //     let nameEl = document.createElement("p")
-    //     let thumbnailEl = document.createElement("img")
-    //     let profileEl = document.createElement("p")
-    //     nameEl.textContent = this.name;
-    //     thumbnailEl.setAttribute("src", this.thumbnailImg);
-    //     profileEl.textContent = this.profileInfo;
-    //     artistInfoDiv.append(nameEl, thumbnailEl, profileEl)
-    // }
     //method to display membersList
-    displayMembersList() {
-        let memberListUl = document.querySelector("#member-list");
-        let memberListHeading = document.createElement("h4")
-        memberListHeading.textContent = "Members"
-        memberListUl.append(memberListHeading)
+    displayMembersList(){
+        let memberListDiv = document.querySelector("#members-list");
+        let membersHeading = document.createElement("strong");
+        membersHeading.textContent = "Members: "
+        memberListDiv.append(membersHeading)
         for(var i = 0; i < this.members.length; i++){
-            let memberListItem = document.createElement("li");
-            memberListItem.textContent = this.members[i].name
-            memberListUl.append(memberListItem)
+            let memberListItem = document.createElement("span");
+            memberListItem.textContent = ` ${this.members[i].name} |`
+            memberListDiv.append(memberListItem);
         }
+
     }
     //method to display discography
     displayDiscography() {
