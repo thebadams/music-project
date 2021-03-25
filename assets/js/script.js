@@ -1,6 +1,6 @@
 //classes to construct to hold information
 //define class to hold artist information
-class artist {
+class Artist {
     //constructs artist object
     constructor(tName, tThumbnailImg, tURL, tInformation, tMembers, tReleaseURL, tReleases) {
         this.name = tName,
@@ -47,7 +47,7 @@ class artist {
         tableHeaderRow.append(tableHeaderTitle, tableHeaderYear);
         for(var i = 0; i < this.releases.length; i++) {
             let discographyListItem = document.createElement("tr")
-            discographyListItem.setAttribute("data-url", this.releases[i].resource_;url)
+            discographyListItem.setAttribute("data-url", this.releases[i].resource_url)
             discographyListItem.classList.add("discography-item");
             discographyContent.append(discographyListItem);
             let discographyItemTitle = document.createElement("td");
@@ -61,7 +61,7 @@ class artist {
 }
 //class for album information
 
-class album {
+class Album {
     constructor(tTitle, tYear, tTrackList, tURL, tArtist) {
         this.title = tTitle,
         this.year = tYear,
@@ -69,13 +69,37 @@ class album {
         this.URL = tURL,
         this.artist = tArtist
     }
+    displayTrackList() {
+        let AlbumNameP = document.querySelector("#album-name");
+        AlbumNameP.textContent = this.title;
+        let trackListUl = document.querySelector("#track-list-content")
+        for(var i = 0; i < this.trackList.length; i++){
+            let trackLi = document.createElement("li");
+            trackLi.textContent = this.trackList[i].title;
+            trackLi.setAttribute("data-artist", albumInfo.artist);
+            trackLi.classList.add("track-item");
+            trackListUl.append(trackLi);
+        }
+
+    }
 }
 // class for song information
-class song {
+class Song {
     constructor(tTitle, tArtist, tLyrics) {
         this.title = tTitle,
         this.artist = tArtist,
         this.lyrics = tLyrics
+    }
+    displayLyrics() {
+        let lyricsModalContent = document.querySelector(".modal-card-body");
+        let lyricsModal = document.querySelector(".lyrics-modal");
+        let regExp = /\n/;
+        let lyricsArray = this.lyrics.split(regExp)
+        console.log(lyricsArray)
+        let lyricsString = lyricsArray.join("<br>")
+        console.log(lyricsString)
+        lyricsModalContent.innerHTML = lyricsString;
+        lyricsModal.classList.add("is-active")
     }
 }
 //basic function to get lyrics
@@ -96,7 +120,7 @@ async function getArtistInfo(searchQuery) {
     // grab artist url_resource (data[i].url_resource)
     // let artistInfo = new artist(data[i].title, data[i].thumb, datai[i].resource_url);
     // return artistInfo;
-    let artistInfo = new artist(data.results[0].title, data.results[0].thumb, data.results[0].resource_url); //creates new artist object
+    let artistInfo = new Artist(data.results[0].title, data.results[0].thumb, data.results[0].resource_url); //creates new artist object
     let response2 = await fetch(artistInfo.URL); // make second fetch request
     let data2 = await response2.json(); // converts second request
     artistInfo.releasesURL = data2.releases_url// sets releases url on the artist info object
@@ -151,26 +175,26 @@ async function getAlbumInfo(requestURL) {
     return albumInfo
 };
 
-var discographyList = document.querySelector("#discography") // grab discography empty div
+// var discographyList = document.querySelector("#discography") // grab discography empty div
 
-discographyList.addEventListener("click", async (event)=>{ // add event listener
-    if(event.target.matches("li")){ // of event target matches li,
-        let requestURL = event.target.dataset.url; // get url off the object
-        let response =  await fetch(requestURL); // fetch
-        let data = await response.json() // convert
-        let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name) //create album object
-        let titleEl = event.target; // create title el
-        let emptyUL = document.createElement("ul"); // create empty ul
-        titleEl.append(emptyUL) // append
-        for(var i = 0; i < albumInfo.trackList.length; i++){ //loop through track list and create elements, appending to the empoty ul
-            let trackLi = document.createElement("li");
-            trackLi.textContent = albumInfo.trackList[i].title
-            trackLi.setAttribute("data-artist", albumInfo.artist)
-            trackLi.classList.add("track-item")
-            emptyUL.append(trackLi)
-        }
-    }
-});
+// discographyList.addEventListener("click", async (event)=>{ // add event listener
+//     if(event.target.matches("li")){ // of event target matches li,
+//         let requestURL = event.target.dataset.url; // get url off the object
+//         let response =  await fetch(requestURL); // fetch
+//         let data = await response.json() // convert
+//         let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name) //create album object
+//         let titleEl = event.target; // create title el
+//         let emptyUL = document.createElement("ul"); // create empty ul
+//         titleEl.append(emptyUL) // append
+//         for(var i = 0; i < albumInfo.trackList.length; i++){ //loop through track list and create elements, appending to the empoty ul
+//             let trackLi = document.createElement("li");
+//             trackLi.textContent = albumInfo.trackList[i].title
+//             trackLi.setAttribute("data-artist", albumInfo.artist)
+//             trackLi.classList.add("track-item")
+//             emptyUL.append(trackLi)
+//         }
+//     }
+// });
 //FIXME:
 // discographyList.addEventListener("click", async (event)=>{ // same as above, this breaks things and I don't know why.
 //     if(event.target.matches(".track-item")) {
