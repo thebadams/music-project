@@ -13,15 +13,26 @@ class artist {
     }
     //method to display information
     displayInfo() {
-        let artistInfoDiv = document.querySelector("#artist-info")
-        let nameEl = document.createElement("p")
-        let thumbnailEl = document.createElement("img")
-        let profileEl = document.createElement("p")
-        nameEl.textContent = this.name;
-        thumbnailEl.setAttribute("src", this.thumbnailImg);
-        profileEl.textContent = this.profileInfo;
-        artistInfoDiv.append(nameEl, thumbnailEl, profileEl)
+        let imageContainer = document.querySelector("#image-container");
+        let thumbnailEl = document.createElement("img");
+        thumbnailEl.setAttribute("src", this.thumbnailImg)
+        imageContainer.append(thumbnailEl);
+        let artistNameDiv = document.querySelector("#artist-name");
+        artistNameDiv.textContent = this.name;
+        let artistInfoDiv = document.querySelector("#profile-info");
+        artistInfoDiv.textContent = this.profileInfo;
+
     }
+    // displayInfo() {
+    //     let artistInfoDiv = document.querySelector("#artist-info")
+    //     let nameEl = document.createElement("p")
+    //     let thumbnailEl = document.createElement("img")
+    //     let profileEl = document.createElement("p")
+    //     nameEl.textContent = this.name;
+    //     thumbnailEl.setAttribute("src", this.thumbnailImg);
+    //     profileEl.textContent = this.profileInfo;
+    //     artistInfoDiv.append(nameEl, thumbnailEl, profileEl)
+    // }
     //method to display membersList
     displayMembersList() {
         let memberListUl = document.querySelector("#member-list");
