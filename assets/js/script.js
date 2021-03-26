@@ -115,14 +115,15 @@ function getLyrics(artistName, songTitle) {
 //get search parameter
 function getParams() {
     let searchQuery = location.search.replace("%20", " ");
-    getArtistInfo(searchQuery);
+    let searchURL = `https://api.discogs.com/database/search${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
+    getArtistInfo(searchURL);
     
 }
 getParams()
 //rework discogs api requests
 async function getArtistInfo(searchQuery) {
     try {
-    let response1 = await fetch(`https://api.discogs.com/database/search${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`); //fetches data
+    let response1 = await fetch(searchQuery); //fetches data
     let data = await response1.json() // converts response to json
     //data returns array
     // grab artist thumbnail image (data[i].thumb)
@@ -209,6 +210,18 @@ trackListOl.addEventListener("click", (event)=>{
         let tArtist = event.target.dataset.artist;
         getSongInfo(tTitle, tArtist)
     }
+})
+
+searchBtn.addEventListener("click", (event)=>{
+    event.preventDefault();
+    let searchInputValue = document.querySelector("#search-input").value
+    console.log(searchInputValue)
+    if(!searchInputValue){
+        console.error("Please Input a Search")
+        return
+    }
+    let searchURL = `https://api.discogs.com/database/search?q=${searchInputValue}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
+    getArtistInfo(searchURL)
 })
 // var discographyList = document.querySelector("#discography") // grab discography empty div
 
