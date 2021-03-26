@@ -181,16 +181,33 @@ let mainReleases = [] // filter releases array
 async function getAlbumInfo(requestURL) { 
     let response = await fetch(requestURL);
     let data = await response.json();
-    let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url)
+    let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name)
     albumInfo.displayTrackList(albumInfo);
     return albumInfo
 };
 
 let discographyContent = document.querySelector("#discography-content");
 discographyContent.addEventListener("click", (event)=>{
-    if(event.target.matches("td")) {
-        console.log("clicked")
+    if(event.target.matches("td")){
         getAlbumInfo(event.target.dataset.url)
+    }
+})
+
+async function getSongInfo(tTitle, tArtist){
+    let songInfo = new Song(tTitle, tArtist)
+    let response = await fetch(`https://api.lyrics.ovh/v1/${songInfo.artist}/${songInfo.title}`)
+    let data = await response.json();
+    songInfo.lyrics = data.lyrics;
+    songInfo.displayLyrics()
+}
+
+let trackListOl = document.querySelector("#track-list-content");
+
+trackListOl.addEventListener("click", (event)=>{
+    if(event.target.matches("li")){
+        let tTitle = event.target.textContent;
+        let tArtist = event.target.dataset.artist;
+        getSongInfo(tTitle, tArtist)
     }
 })
 // var discographyList = document.querySelector("#discography") // grab discography empty div
