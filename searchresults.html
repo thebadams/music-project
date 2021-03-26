@@ -23,6 +23,33 @@
     </section>
 
     <section>
+        <nav class="navbar has-shadow is-hidden-desktop">
+            <div class="navbar-end">
+                <a class="navbar-burger" id="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+            <div class="is-hidden" id="searchCard">
+                <div class="card-content">
+                    <input class="input is-large has-text-centered	" type="text" placeholder="User Input Here">
+                </div>
+                <footer class="card-footer">
+                    <div class="card-footer-item">
+                        <a class="button is-success is-medium">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <span>Search</span>
+                           </span>
+                        </a>
+                    </div>
+                </footer>
+            </div>
+        </nav>
+
         <div class="columns">
             <!-- First Column -->
             <div class="column is-one-third">
@@ -47,16 +74,7 @@
                 <!-- Track List of selected album -->
                 <div class="card track-list-card">
                     <div class="card-content">
-                        <div class="media">
-                            <div class="media-left">
-                                <figure class="image is-48x48">
-                                    <img src="" alt="Album Img">
-                                </figure>
-                            </div>
-                            <div class="media-content">
-                                <p class="title is-4">Album Name</p>
-                            </div>
-                        </div>
+                        <p class="title is-4">Album Name</p>
                     </div>
                     <div class="content">
                         <p><strong>Track List:</strong></p>
@@ -91,7 +109,7 @@
                         </br>
                         
                         <div class="title is-4" id="discogcontent">
-                            Arist Name:
+                            Artist Name:
                         </div>
                         
                         <!--Profile Page-->
