@@ -8,7 +8,6 @@
     <title>Search Results</title>
     <script src="https://kit.fontawesome.com/0d8db3f55e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -23,36 +22,39 @@
     </section>
 
     <section>
-        <nav class="navbar has-shadow is-hidden-desktop">
-            <div class="navbar-end">
-                <a class="navbar-burger" id="burger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </a>
-            </div>
-            <div class="is-hidden" id="searchCard">
-                <div class="card-content">
-                    <input class="input is-large has-text-centered	" type="text" placeholder="User Input Here">
+        <!-- Nav Bar -->
+        <nav class= "notification is-hidden-desktop has-text-centered is-success">
+                <div class="" id="burger">
+                    <span class="button icon-text is-success icon is-large">
+                        <span class="icon">
+                          <i class="fas fa-search"></i>
+                        </span>
+                      </span>
+                </div>
+            
+            <!-- Hidden Search Field-->
+            <div class="is-hidden " id="searchCard">
+                <div class="card-content ">
+                 <input class="input is-large has-text-centered " type="text" placeholder="User Input Here">
                 </div>
                 <footer class="card-footer">
                     <div class="card-footer-item">
-                        <a class="button is-success is-medium">
-                            <span class="icon-text">
-                                <span class="icon">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                                <span>Search</span>
+                     <a class="button  is-success is-medium is-fullwidth">
+                         <span class="icon-text">
+                             <span class="icon">
+                               <i class="fas fa-search"></i>
+                             </span>
+                             <span>Search</span>
                            </span>
-                        </a>
+                       </a>
                     </div>
                 </footer>
-            </div>
-        </nav>
-
+             </div>
+           </nav>
+       
         <div class="columns">
             <!-- First Column -->
-            <div class="column is-one-third">
+            <div class="column is-hidden-touch">
                 <div class="card">
                     <div class="card-content">
                         <input class="input is-large has-text-centered	" type="text" placeholder="User Input Here">
@@ -93,8 +95,8 @@
             <div class="column is-two-thirds">
                 <div class="card">
                     <div class="card-content">
-                        <header class="card-header has-background-danger-light">
-                            <p class="title is-1">
+                        <header class="title has-background-link-dark has-text-centered">
+                            <p class="title is-1 has-text-light">
                                 <i class="fas fa-headphones-alt"></i> Results
                             </p>
                         </header>
@@ -155,6 +157,7 @@
     </div>
     <script src="./assets/js/api-keys.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/BulmaSearch.js"></script>
 </body>
 
 </html>
