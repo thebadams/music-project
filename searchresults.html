@@ -74,17 +74,17 @@
                 <!-- Track List of selected album -->
                 <div class="card track-list-card">
                     <div class="card-content">
-                        <p class="title is-4">Album Name</p>
+                        <p class="title is-4" id= "album-name">Album Name</p>
                     </div>
                     <div class="content">
                         <p><strong>Track List:</strong></p>
-                        <ul>
+                        <ol id = "track-list-content">
                             <li>Track 1</li>
                             <li>Track 2</li>
                             <li>Track 3</li>
                             <li>Track 4</li>
                             <li>Track 5</li>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -102,18 +102,17 @@
                         </br>
 
                         <!--Image of artist-->
-                        <figure class="image is-48x48">
-                            <img src="" alt="Artist Picture">
+                        <figure class="image is-48x48" id = "image-container">
                         </figure>
                         
                         </br>
                         
-                        <div class="title is-4" id="discogcontent">
-                            Artist Name:
+                        <div class="title is-4" id="artist-name">
+                            Arist Name:
                         </div>
                         
                         <!--Profile Page-->
-                        <div class="subtitle is-5">
+                        <div class="subtitle is-5" id = "profile-info">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce placerat consequat nibh, in finibus nunc egestas sed. 
                             Etiam aliquam lorem tortor, at accumsan tellus facilisis sit amet. Sed eget ornare felis. Nullam eget aliquet dui, 
                             id elementum orci. Morbi dapibus venenatis risus, et lacinia ante varius sed. Quisque fringilla nisi a quam viverra volutpat. 
@@ -125,43 +124,37 @@
                         </div>
 
                         <!--Members (if its a group/band)-->
-                        <div class="subtitle is-5">
-                            <strong>Members:</strong> Blah, Blah, Blah
+                        <div class="subtitle is-5" id = "members-list">
                         </div>
 
                         <!--Discography-->
-                        <table class="table is-bordered is-hoverable is-fullwidth">
-                            <thread>
-                                <tr>
-                                    <th><abbr title="Discography">Discography</abbr></th>
-                                    <th><abbr title="Year">Year</abbr></th>
+                        <table class="table is-bordered is-hoverable is-fullwidth is-centered">
+                            <thead>
+                                <tr id = "table-header-row">
                                 </tr>
-                            </thread>
-                            <tbody>
-                                <td>Discography 1</td>
-                                <td>Discography Year</td>
-                            </tbody>
-                            <tbody>
-                                <td>Discography 2</td>
-                                <td>Discography Year</td>
-                            </tbody>
-                            <tbody>
-                                <td>Discography 3</td>
-                                <td>Discography Year</td>
-                            </tbody>
-                            <tbody>
-                                <td>Discography 4</td>
-                                <td>Discography Year</td>
-                            </tbody>
-                            <tbody>
-                                <td>Discography 5</td>
-                                <td>Discography Year</td>
+                            </thead>
+                            <tbody id = "discography-content">
+                            
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
     </section>
+    <div class="modal lyrics-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Modal title</p>
+                <button class="delete lyrics-dismiss" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <!-- Content ... -->
+            </section>
+        </div>
+    </div>
+    <script src="./assets/js/api-keys.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
