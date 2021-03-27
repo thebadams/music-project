@@ -176,9 +176,9 @@ let mainReleases = [] // filter releases array
     
     // while(data3.pagination.urls)
     //filter releases by type = master
-    } catch {(err)=>{
-        alert(err);
-    }}
+    } catch (err) {
+        console.error(err);
+    }
     
 }
 
@@ -276,8 +276,11 @@ savedArtistsLink.addEventListener("click", ()=>{
 let saveButton = document.querySelector("#save-button")
 saveButton.addEventListener("click", () =>{
     let artistName = document.querySelector("#artist-name");
-    savedArtists.push(artistName.textContent)
-    localStorage.setItem("savedArtists", JSON.stringify(savedArtists));
+    if(savedArtists!==artistName){
+        savedArtists.push(artistName.textContent)
+        localStorage.setItem("savedArtists", JSON.stringify(savedArtists));
+    }
+    
 })
 ////Mobile Styling
 
