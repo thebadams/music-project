@@ -1,5 +1,6 @@
 //grab html elements
 let searchBtn = document.querySelector("#search-btn")
+let savedArtists = JSON.parse(localStorage.getItem("savedArtists")||"[]")
 
 //classes to construct to hold information
 //define class to hold artist information
@@ -94,14 +95,15 @@ class Song {
         this.lyrics = tLyrics
     }
     displayLyrics() {
-        let lyricsModalContent = document.querySelector(".modal-card-body");
+        let lyricsModalContent = document.querySelector("#lyrics-card-body");
+        let lyricsTitle = document.querySelector("#lyrics-title");
         let lyricsModal = document.querySelector(".lyrics-modal");
         let regExp = /\n/;
         let lyricsArray = this.lyrics.split(regExp)
         console.log(lyricsArray)
         let lyricsString = lyricsArray.join("<br>")
-        console.log(lyricsString)
         lyricsModalContent.innerHTML = lyricsString;
+        lyricsTitle.textContent = this.title
         lyricsModal.classList.add("is-active")
     }
 }
@@ -122,6 +124,8 @@ function getParams() {
 getParams()
 //rework discogs api requests
 async function getArtistInfo(searchQuery) {
+    resetArtistInfo()
+    resetTracklist()
     try {
     let response1 = await fetch(searchQuery); //fetches data
     let data = await response1.json() // converts response to json
@@ -179,7 +183,8 @@ let mainReleases = [] // filter releases array
 
 // let discographyList = document.querySelector("#discography");
 
-async function getAlbumInfo(requestURL) { 
+async function getAlbumInfo(requestURL) {
+    resetTracklist();
     let response = await fetch(requestURL);
     let data = await response.json();
     let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name)
@@ -223,77 +228,6 @@ searchBtn.addEventListener("click", (event)=>{
     let searchURL = `https://api.discogs.com/database/search?q=${searchInputValue}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
     getArtistInfo(searchURL)
 })
-// var discographyList = document.querySelector("#discography") // grab discography empty div
-
-// discographyList.addEventListener("click", async (event)=>{ // add event listener
-//     if(event.target.matches("li")){ // of event target matches li,
-//         let requestURL = event.target.dataset.url; // get url off the object
-//         let response =  await fetch(requestURL); // fetch
-//         let data = await response.json() // convert
-//         let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name) //create album object
-//         let titleEl = event.target; // create title el
-//         let emptyUL = document.createElement("ul"); // create empty ul
-//         titleEl.append(emptyUL) // append
-//         for(var i = 0; i < albumInfo.trackList.length; i++){ //loop through track list and create elements, appending to the empoty ul
-//             let trackLi = document.createElement("li");
-//             trackLi.textContent = albumInfo.trackList[i].title
-//             trackLi.setAttribute("data-artist", albumInfo.artist)
-//             trackLi.classList.add("track-item")
-//             emptyUL.append(trackLi)
-//         }
-//     }
-// });
-//FIXME:
-// discographyList.addEventListener("click", async (event)=>{ // same as above, this breaks things and I don't know why.
-//     if(event.target.matches(".track-item")) {
-//         let artistName = event.target.dataset.artist;
-//         let songTitle = event.target.textContent;
-//         let requestURL = `https://api.lyrics.ovh/v1/${artistName}/${songTitle}`;
-//         let response = await fetch(requestURL);
-//         let data = await response.json();
-//         let songInfo = new song(songTitle, artistName, data.lyrics);
-//         return songInfo
-//     }
-// })
-
-
-// queries discogs API by artist name to get artist resource url
-// async function searchDiscogsArtistName(searchQuery) {
-// 	const response = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`)
-// 	const data = await response.json()
-// 	return data.results[0].resource_url
-// }
-
-// //queries discogs API by artist ID to get artist releases URL
-// async function searchDiscogsArtistID() {
-//     let requestURL = await searchDiscogsArtistName();
-//     let response = await fetch(requestURL);
-//     let data = await response.json();
-//     return data.releases_url
-// }
-
-// TODO: filter results by release type, master
-
-// //queries discogs API by artist releases url to get specific release information
-// async function searchDiscogsArtistReleases() {
-//     let requestURL = await searchDiscogsArtistID();
-//     let response = await fetch(requestURL);
-//     let data = await response.json()
-//     return data.releases[1].resource_url
-// }
-
-
-// //queries discogs API by release resource url to get tracklist information
-// async function searchDiscogsReleaseTrackList() {
-//     let requestURL = await searchDiscogsArtistReleases();
-//     let response = await fetch(requestURL);
-//     let data = await response.json();
-//     return data.tracklist
-// }
-
-//searchDiscogs3
-//get artist releases
-//filter released by role = "Main" or type = master
 
 //modal logic
 let lyricsModalDismiss = document.querySelector(".lyrics-dismiss")
@@ -302,4 +236,78 @@ lyricsModalDismiss.addEventListener("click", ()=>{
     let lyricsModal = document.querySelector(".lyrics-modal");
     lyricsModal.classList.remove("is-active");
 })
+let saveModalDismiss = document.querySelector(".save-dismiss")
+saveModalDismiss.addEventListener("click", ()=>{
+    let saveModal = document.querySelector(".save-modal");
+    saveModal.classList.remove("is-active");
+})
 
+let savedArtistsLink = document.querySelector("#saved-artists-link")
+savedArtistsLink.addEventListener("click", ()=>{
+  let saveModal = document.querySelector(".save-modal");
+  saveModal.classList.add("is-active");
+   let saveOl = document.querySelector("#save-ol");
+  for(let i=0; i<savedArtists.length; i++ ) {
+    let saveListItem = document.createElement("li");
+    saveListItem.textContent=savedArtists[i]
+    saveOl.append(saveListItem)  
+  }  
+}) 
+
+let saveButton = document.querySelector("#save-button")
+saveButton.addEventListener("click", () =>{
+    let artistName = document.querySelector("#artist-name");
+    savedArtists.push(artistName.textContent)
+    localStorage.setItem("savedArtists", JSON.stringify(savedArtists));
+})
+////Mobile Styling
+
+var burgerIcon = document.querySelector('#burger');
+var navbarMenu = document.querySelector('#nav-links');
+
+burgerIcon.addEventListener("click", () => {
+    navbarMenu.classList.toggle('is-active');
+});
+
+//reset functions
+
+function resetArtistInfo() {
+    let imageContainer = document.querySelector("#image-container");
+    if(imageContainer.childElementCount!==0) {
+        for(let i = imageContainer.children.length-1; i>=0; i--){
+            imageContainer.children[i].remove()
+        }
+    }
+    let artistNameDiv = document.querySelector("#artist-name");
+    artistNameDiv.textContent = "";
+    let membersListDiv = document.querySelector("#members-list");
+    let profileInfoDiv = document.querySelector("#profile-info");
+    profileInfoDiv.textContent = "";
+    if(membersListDiv.childElementCount!==0) {
+        for(let i = membersListDiv.children.length-1; i>=0; i--){
+            membersListDiv.children[i].remove()
+        }
+    }
+    let tableHeaderRow = document.querySelector("#table-header-row");
+    if(tableHeaderRow.childElementCount!==0) {
+        for(let i = tableHeaderRow.children.length-1; i>=0; i--){
+            tableHeaderRow.children[i].remove()
+        }
+    }
+    let discographyContent = document.querySelector("#discography-content")
+    if(discographyContent.childElementCount!==0) {
+        for(let i = discographyContent.children.length-1; i>=0; i--){
+            discographyContent.children[i].remove()
+        }
+    }
+
+}
+
+function resetTracklist() {
+    let trackListContent = document.querySelector("#track-list-content")
+    if(trackListContent.childElementCount!==0) {
+        for(let i = trackListContent.children.length-1; i>=0; i--){
+            trackListContent.children[i].remove();
+        }
+    }
+}
