@@ -122,6 +122,8 @@ function getParams() {
 getParams()
 //rework discogs api requests
 async function getArtistInfo(searchQuery) {
+    resetArtistInfo()
+    resetTracklist()
     try {
     let response1 = await fetch(searchQuery); //fetches data
     let data = await response1.json() // converts response to json
@@ -179,7 +181,8 @@ let mainReleases = [] // filter releases array
 
 // let discographyList = document.querySelector("#discography");
 
-async function getAlbumInfo(requestURL) { 
+async function getAlbumInfo(requestURL) {
+    resetTracklist();
     let response = await fetch(requestURL);
     let data = await response.json();
     let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name)
