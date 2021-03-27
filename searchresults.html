@@ -16,8 +16,8 @@
         <div class="hero body">
             <p class="title">
             <h1 class="title is-1 has-text-centered"> <i class=" fas fa-music"></i> Music Enthusiast’s Haven
-                <i
-                    class=" fas fa-music"></i></h1>
+                <i class=" fas fa-music"></i>
+            </h1>
             <h2 class="subtitle has-text-centered">The One-Stop Shop For Music Information
             </h2>
             </p>
@@ -26,45 +26,47 @@
 
     <section>
         <!-- Nav Bar Mobile -->
-        <nav class= "notification is-hidden-desktop has-text-centered is-success">
-                <div class="" id="burger">
-                    <span class="button icon-text is-success icon is-large">
-                        <span class="icon">
-                          <i class="fas fa-bars fa-fw"></i>
-                        </span>
-                      </span>
-                </div>
-            
+        <nav class="notification is-hidden-desktop has-text-centered is-success">
+            <div class="" id="burger">
+                <span class="button icon-text is-success icon is-large">
+                    <span class="icon">
+                        <i class="fas fa-bars fa-fw"></i>
+                    </span>
+                </span>
+            </div>
+
             <!-- Hidden Search Field-->
             <div class="is-hidden " id="searchCard">
                 <div class="card-content ">
-                 <input class="input is-large has-text-centered " type="text" placeholder="User Input Here" id = "hidden-search-input">
+                    <input class="input is-large has-text-centered " type="text" placeholder="User Input Here"
+                        id="hidden-search-input">
                 </div>
                 <footer class="card-footer">
-                    <div class="card-footer-item" id = "hidden-search-btn">
-                     <a class="button  is-success is-medium is-fullwidth">
-                         <span class="icon-text">
-                             <span class="icon">
-                               <i class="fas fa-search"></i>
-                             </span>
-                             <span>Search</span>
-                           </span>
-                       </a>
+                    <div class="card-footer-item" id="hidden-search-btn">
+                        <a class="button  is-success is-medium is-fullwidth">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <span>Search</span>
+                            </span>
+                        </a>
                     </div>
                 </footer>
-             </div>
-           </nav>
-       
+            </div>
+        </nav>
+
         <div class="columns">
             <!-- First Column -->
 
             <div class="column is-hidden-touch">
                 <div class="card">
                     <div class="card-content">
-                        <input class="input is-large has-text-centered	" type="text" placeholder="User Input Here" id= "search-input">
+                        <input class="input is-large has-text-centered	" type="text" placeholder="User Input Here"
+                            id="search-input">
                     </div>
                     <footer class="card-footer">
-                        <div class="card-footer-item" id = "search-btn">
+                        <div class="card-footer-item" id="search-btn">
                             <a class="button is-success is-medium">
                                 <span class="icon-text">
                                     <span class="icon">
@@ -77,22 +79,23 @@
                     </footer>
                 </div>
 
-               
+
             </div>
-             <!-- Track List of selected album -->
-             <div class="column card track-list-card">
-                <h2 class="subtitle has-text-centered">Click on Song Title for Lyrics!
+
+            <!-- Track List of selected album -->
+            <div class="column card track-list-card">
+                <h2 class="subtitle has-text-centered has-text-weight-semibold" id="TracklistTitle">Click on Song Title for Lyrics!
                 </h2>
                 <div class="card-content">
-                    <p class="title is-4" id= "album-name">Album Name</p>
+                    <p class="title is-4" id="album-name">Album Name</p>
                 </div>
                 <div class="content">
                     <p><strong>Track List:</strong></p>
-                    <ol id = "track-list-content">
+                    <ol id="track-list-content">
                     </ol>
                 </div>
             </div>
-            
+
             <!-- Second Column -->
             <div class="column is-two-thirds">
                 <div class="card">
@@ -102,11 +105,11 @@
                                 <i class="fas fa-headphones-alt"></i> Results
                             </p>
                         </header>
-                        
+
                         </br>
 
                         <!--Image of artist-->
-                        <figure class="image pb-3 mb-3 is-96x96"  id = "image-container">
+                        <figure class="image pb-3 mb-3 is-96x96" id="image-container">
                         </figure>
                         <a class="button is-medium is-success">
                             <i class="fas fa-save" id="save-button"></i>
@@ -116,33 +119,33 @@
                             <i class="fas fa-book fa-fw"></i> Saved Artists
                         </a>
                         <div class="title is-4" id="artist-name">
-                            
-                        </div> 
-                        
+
+                        </div>
+
                         <!--Profile Page-->
-                        <div class="subtitle is-5" id = "profile-info">
-                           
+                        <div class="subtitle is-5" id="profile-info">
+
                         </div>
 
                         <!--Members (if its a group/band)-->
-                        <div class="subtitle is-5" id = "members-list">
+                        <div class="subtitle is-5" id="members-list">
                         </div>
 
                         <!--Discography-->
                         <table class="table is-bordered is-hoverable is-fullwidth is-centered">
                             <thead>
-                                <tr id = "table-header-row">
+                                <tr id="table-header-row">
                                 </tr>
                             </thead>
-                            <tbody id = "discography-content">
-                            
+                            <tbody id="discography-content">
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
     </section>
-   
+
     <div class="modal lyrics-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -164,7 +167,7 @@
             </header>
             <section class="modal-card-body">
                 <ol id="save-ol">
-                 
+
                 </ol>
                 <!-- Content ... -->
             </section>
