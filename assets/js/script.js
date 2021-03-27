@@ -87,6 +87,7 @@ class Album {
 
     }
 }
+
 // class for song information
 class Song {
     constructor(tTitle, tArtist, tLyrics) {
