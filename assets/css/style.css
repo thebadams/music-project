@@ -6,3 +6,6 @@
     margin-top: 10%;
     padding: 2%;
 }
+li:hover {
+    background-color: yellow ;
+}
