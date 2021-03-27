@@ -1,3 +1,6 @@
+//grab html elements
+let searchBtn = document.querySelector("#search-btn")
+
 //classes to construct to hold information
 //define class to hold artist information
 class Artist {
@@ -47,12 +50,12 @@ class Artist {
         tableHeaderRow.append(tableHeaderTitle, tableHeaderYear);
         for(var i = 0; i < this.releases.length; i++) {
             let discographyListItem = document.createElement("tr")
-            discographyListItem.setAttribute("data-url", this.releases[i].resource_url)
             discographyListItem.classList.add("discography-item");
             discographyContent.append(discographyListItem);
             let discographyItemTitle = document.createElement("td");
             let discographyItemYear = document.createElement("td");
             discographyItemTitle.textContent = this.releases[i].title;
+            discographyItemTitle.setAttribute("data-url", this.releases[i].resource_url);
             discographyItemYear.textContent = this.releases[i].year;
             discographyListItem.append(discographyItemTitle, discographyItemYear);
         }
@@ -69,7 +72,7 @@ class Album {
         this.URL = tURL,
         this.artist = tArtist
     }
-    displayTrackList() {
+    displayTrackList(albumInfo) {
         let AlbumNameP = document.querySelector("#album-name");
         AlbumNameP.textContent = this.title;
         let trackListUl = document.querySelector("#track-list-content")
@@ -109,10 +112,18 @@ function getLyrics(artistName, songTitle) {
 		.then((data) => console.log(data));
 }
 
+//get search parameter
+function getParams() {
+    let searchQuery = location.search.replace("%20", " ");
+    let searchURL = `https://api.discogs.com/database/search${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
+    getArtistInfo(searchURL);
+    
+}
+getParams()
 //rework discogs api requests
 async function getArtistInfo(searchQuery) {
     try {
-    let response1 = await fetch(`https://api.discogs.com/database/search?q=${searchQuery}&type=artist&key=${discogsKey}&secret=${discogsSecret}`); //fetches data
+    let response1 = await fetch(searchQuery); //fetches data
     let data = await response1.json() // converts response to json
     //data returns array
     // grab artist thumbnail image (data[i].thumb)
@@ -171,10 +182,47 @@ let mainReleases = [] // filter releases array
 async function getAlbumInfo(requestURL) { 
     let response = await fetch(requestURL);
     let data = await response.json();
-    let albumInfo = new album(data.title, data.year, data.tracklist, data.resource_url)
+    let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name)
+    albumInfo.displayTrackList(albumInfo);
     return albumInfo
 };
 
+let discographyContent = document.querySelector("#discography-content");
+discographyContent.addEventListener("click", (event)=>{
+    if(event.target.matches("td")){
+        getAlbumInfo(event.target.dataset.url)
+    }
+})
+
+async function getSongInfo(tTitle, tArtist){
+    let songInfo = new Song(tTitle, tArtist)
+    let response = await fetch(`https://api.lyrics.ovh/v1/${songInfo.artist}/${songInfo.title}`)
+    let data = await response.json();
+    songInfo.lyrics = data.lyrics;
+    songInfo.displayLyrics()
+}
+
+let trackListOl = document.querySelector("#track-list-content");
+
+trackListOl.addEventListener("click", (event)=>{
+    if(event.target.matches("li")){
+        let tTitle = event.target.textContent;
+        let tArtist = event.target.dataset.artist;
+        getSongInfo(tTitle, tArtist)
+    }
+})
+
+searchBtn.addEventListener("click", (event)=>{
+    event.preventDefault();
+    let searchInputValue = document.querySelector("#search-input").value
+    console.log(searchInputValue)
+    if(!searchInputValue){
+        console.error("Please Input a Search")
+        return
+    }
+    let searchURL = `https://api.discogs.com/database/search?q=${searchInputValue}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
+    getArtistInfo(searchURL)
+})
 // var discographyList = document.querySelector("#discography") // grab discography empty div
 
 // discographyList.addEventListener("click", async (event)=>{ // add event listener
@@ -255,18 +303,3 @@ lyricsModalDismiss.addEventListener("click", ()=>{
     lyricsModal.classList.remove("is-active");
 })
 
-async function displayLyrics(){
-    let lyricsModalContent = document.querySelector(".modal-card-body");
-    let lyricsModal = document.querySelector(".lyrics-modal");
-    let response = await fetch(`https://api.lyrics.ovh/v1/Billy Joel/Piano Man`);
-	let data = await response.json();
-    console.log(data.lyrics)
-    let regExp = /\r/;
-    let regExp2 = /\n/;
-    let lyricsArray = data.lyrics.split(regExp2)
-    console.log(lyricsArray)
-    let lyricsString = lyricsArray.join("<br>")
-    console.log(lyricsString)
-    lyricsModalContent.innerHTML = lyricsString;
-    lyricsModal.classList.add("is-active")
-}
