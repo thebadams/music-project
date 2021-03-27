@@ -30,9 +30,7 @@
     </div>
     <div class="navbar-menu" id="nav-links">
       <div class="navbar-end">
-        <a class="navbar-item">Test</a>
-        <a class="navbar-item">Test</a>
-        <a class="navbar-item">Test</a>
+        <a class="navbar-item" id = "saved-artists-link">Saved Artists</a>
       </div>
     </div>
   </nav>
@@ -57,6 +55,21 @@
       </footer>
     </div>
   </section>
+  <div class="modal save-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title" id="save-title">Saved Artists</p>
+        <button class="delete save-dismiss" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <ol id="save-ol">
+  
+        </ol>
+        <!-- Content ... -->
+      </section>
+    </div>
+  </div>
 
 <script src="./assets/js/api-keys.js"></script>
 <script src="./assets/js/start-page.js"></script>
