@@ -14,18 +14,20 @@
     <section class="hero is-large is-danger">
         <div class="hero body">
             <p class="title">
-            <h1 class="title is-1 has-text-centered"> <i class=" fas fa-music"></i> Music Library <i
+            <h1 class="title is-1 has-text-centered"> <i class=" fas fa-music"></i> Music Enthusiast’s Haven
+                <i
                     class=" fas fa-music"></i></h1>
-            <h2 class="subtitle has-text-centered">Find your favorite artists</h2>
+            <h2 class="subtitle has-text-centered">The One-Stop Shop For Music Information
+            </h2>
             </p>
         </div>
     </section>
 
     <section>
-        <!-- Nav Bar -->
+        <!-- Nav Bar Mobile -->
         <nav class= "notification is-hidden-desktop has-text-centered is-success">
                 <div class="" id="burger">
-                    <span class="button icon-text is-success icon is-large	">
+                    <span class="button icon-text is-success icon is-large">
                         <span class="icon">
                           <i class="fas fa-search"></i>
                         </span>
@@ -54,13 +56,14 @@
        
         <div class="columns">
             <!-- First Column -->
+
             <div class="column is-hidden-touch">
                 <div class="card">
                     <div class="card-content">
-                        <input class="input is-large has-text-centered	" type="text" placeholder="User Input Here">
+                        <input class="input is-large has-text-centered	" type="text" placeholder="User Input Here" id= "search-input">
                     </div>
                     <footer class="card-footer">
-                        <div class="card-footer-item">
+                        <div class="card-footer-item" id = "search-btn">
                             <a class="button is-success is-medium">
                                 <span class="icon-text">
                                     <span class="icon">
@@ -72,9 +75,22 @@
                         </div>
                     </footer>
                 </div>
+
+                <!-- Track List of selected album -->
+                <div class="card track-list-card">
+                    <div class="card-content">
+                        <p class="title is-4" id= "album-name">Album Name</p>
+                    </div>
+                    <div class="content">
+                        <p><strong>Track List:</strong></p>
+                        <ol id = "track-list-content">
+                        </ol>
+                    </div>
+                </div>
             </div>
+            
             <!-- Second Column -->
-            <div class="column">
+            <div class="column is-two-thirds">
                 <div class="card">
                     <div class="card-content">
                         <header class="title has-background-link-dark has-text-centered">
@@ -82,30 +98,77 @@
                                 <i class="fas fa-headphones-alt"></i> Results
                             </p>
                         </header>
-                        <h3 class="subtitle is-4" id="discogcontent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Commodo nulla facilisi nullam vehicula
-                            ipsum a. Diam quam nulla porttitor massa. Pretium vulputate sapien nec sagittis. Egestas
-                            pretium aenean pharetra magna. Aenean euismod elementum nisi quis eleifend quam adipiscing
-                            vitae. Malesuada fames ac turpis egestas. Faucibus et molestie ac feugiat. Neque gravida in
-                            fermentum et sollicitudin ac orci phasellus. Mauris pellentesque pulvinar pellentesque
-                            habitant morbi tristique senectus et netus. Blandit aliquam etiam erat velit. Pellentesque
-                            habitant morbi tristique senectus et netus.
+                        
+                        </br>
 
-                            Nec sagittis aliquam malesuada bibendum. At consectetur lorem donec massa sapien faucibus.
-                            Sed augue lacus viverra vitae congue eu consequat ac. Tristique magna sit amet purus gravida
-                            quis blandit. Arcu felis bibendum ut tristique et. Tristique risus nec feugiat in fermentum
-                            posuere urna nec tincidunt. Aliquet nec ullamcorper sit amet. Scelerisque viverra mauris in
-                            aliquam sem. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent. Dolor sed
-                            viverra ipsum nunc aliquet bibendum. Sapien nec sagittis aliquam malesuada bibendum arcu. Et
-                            odio pellentesque diam volutpat commodo sed egestas. Elementum tempus egestas sed sed risus
-                            pretium quam vulputate dignissim.</h3>
+                        <!--Image of artist-->
+                        <figure class="image is-128x128" id = "image-container">
+                        </figure>
+                        <a class="button is-medium is-success">
+                            <i class="fas fa-save" id="save-button"></i>
+                        </a>
+
+                        <a class="button is-medium is-success">
+                            <i class="fas fa-book" id="artist-storage"></i> Saved Artists
+                        </a>
+                        <div class="title is-4" id="artist-name">
+                            
+                        </div> 
+                        
+                        <!--Profile Page-->
+                        <div class="subtitle is-5" id = "profile-info">
+                           
+                        </div>
+
+                        <!--Members (if its a group/band)-->
+                        <div class="subtitle is-5" id = "members-list">
+                        </div>
+
+                        <!--Discography-->
+                        <table class="table is-bordered is-hoverable is-fullwidth is-centered">
+                            <thead>
+                                <tr id = "table-header-row">
+                                </tr>
+                            </thead>
+                            <tbody id = "discography-content">
+                            
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
             </div>
     </section>
-<script src="./assets/js/BulmaSearch.js"></script>
+   
+    <div class="modal lyrics-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="lyrics-title">Modal title</p>
+                <button class="delete lyrics-dismiss" aria-label="close"></button>
+            </header>
+            <section id="lyrics-card-body" class="modal-card-body">
+                <!-- Content ... -->
+            </section>
+        </div>
+    </div>
+    <div class="modal save-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="save-title">Modal title</p>
+                <button class="delete save-dismiss" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <ol id="save-ol">
+                 
+                </ol>
+                <!-- Content ... -->
+            </section>
+        </div>
+    </div>
+    <script src="./assets/js/api-keys.js"></script>
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/BulmaSearch.js"></script>
 </body>
 
 </html>
