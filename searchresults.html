@@ -54,6 +54,7 @@
        
         <div class="columns">
             <!-- First Column -->
+            <p id="saved-artists-link">Saved Artists</p>
             <div class="column is-hidden-touch">
                 <div class="card">
                     <div class="card-content">
@@ -103,21 +104,14 @@
                         </figure>
                         
                         </br>
-                        
+                        <i class="fas fa-save" id="save-button"></i>
                         <div class="title is-4" id="artist-name">
-                            Arist Name:
-                        </div>
+                            
+                        </div> 
                         
                         <!--Profile Page-->
                         <div class="subtitle is-5" id = "profile-info">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce placerat consequat nibh, in finibus nunc egestas sed. 
-                            Etiam aliquam lorem tortor, at accumsan tellus facilisis sit amet. Sed eget ornare felis. Nullam eget aliquet dui, 
-                            id elementum orci. Morbi dapibus venenatis risus, et lacinia ante varius sed. Quisque fringilla nisi a quam viverra volutpat. 
-                            Nulla tincidunt, mauris eu pulvinar sollicitudin, nulla eros convallis massa, non ornare urna felis a neque. Sed lacinia et 
-                            sapien id varius. Sed aliquam iaculis neque eu lacinia. Vivamus eu mollis nulla, non volutpat ex. Cras maximus orci vitae 
-                            tristique rutrum. Quisque tempus id ex non pharetra. Duis vel sapien erat. Nam placerat velit at nisl laoreet, at lobortis 
-                            sapien scelerisque. Morbi molestie, nisi sed mattis egestas, lectus lorem porta enim, posuere eleifend urna ipsum a orci. 
-                            Curabitur lacinia in nibh sed rutrum.
+                           
                         </div>
 
                         <!--Members (if its a group/band)-->
@@ -138,6 +132,7 @@
                 </div>
             </div>
     </section>
+   
     <div class="modal lyrics-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -145,7 +140,22 @@
                 <p class="modal-card-title" id="lyrics-title">Modal title</p>
                 <button class="delete lyrics-dismiss" aria-label="close"></button>
             </header>
+            <section id="lyrics-card-body" class="modal-card-body">
+                <!-- Content ... -->
+            </section>
+        </div>
+    </div>
+    <div class="modal save-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="save-title">Modal title</p>
+                <button class="delete save-dismiss" aria-label="close"></button>
+            </header>
             <section class="modal-card-body">
+                <ol id="save-ol">
+                 
+                </ol>
                 <!-- Content ... -->
             </section>
         </div>

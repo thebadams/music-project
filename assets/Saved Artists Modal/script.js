@@ -1,6 +1,6 @@
-var button = document.getElementById('button');
-var modal = document.getElementById('artists-modal');
-var close = document.getElementsByClassName('modal-close')[0];
+const button = document.getElementById('button');
+const modal = document.getElementById('artists-modal');
+const close = document.getElementsByClassName('modal-close')[0];
 
 button.onclick = function() {
     modal.style.display = 'block';
@@ -14,3 +14,4 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 }
+

@@ -1,10 +1,10 @@
-var savedModalDismiss =
+const savedModalDismiss =
 document.getElementById("savedModal");
 
-var btn =
+const btn =
 document.getElementById("savedbtn");
 
-var span =
+const span =
 document.getElementsByClassName("close")[0];
 
 btn.onclick = function() {
@@ -19,10 +19,15 @@ window.onclick = function(event) {
     }
 }
 
-var savedArtistsModal =
-document.getElementById("savedArtists")
+const savedArtistsButton = document.querySelector('#saved-artists');
+const modalBg = document.querySelector('.modal-background');
+const  modal = document.querySelector('.modal'); 
 
+savedArtistsButton.addEventListener('click', () => {
+    modal.classList.add('is-active');
+});
 
+ 
 
 try {
     adddlert("Uh-Oh!");

@@ -95,7 +95,7 @@ class Song {
         this.lyrics = tLyrics
     }
     displayLyrics() {
-        let lyricsModalContent = document.querySelector(".modal-card-body");
+        let lyricsModalContent = document.querySelector("#lyrics-card-body");
         let lyricsTitle = document.querySelector("#lyrics-title");
         let lyricsModal = document.querySelector(".lyrics-modal");
         let regExp = /\n/;
@@ -236,7 +236,30 @@ lyricsModalDismiss.addEventListener("click", ()=>{
     let lyricsModal = document.querySelector(".lyrics-modal");
     lyricsModal.classList.remove("is-active");
 })
+let saveModalDismiss = document.querySelector(".save-dismiss")
+saveModalDismiss.addEventListener("click", ()=>{
+    let saveModal = document.querySelector(".save-modal");
+    saveModal.classList.remove("is-active");
+})
 
+let savedArtistsLink = document.querySelector("#saved-artists-link")
+savedArtistsLink.addEventListener("click", ()=>{
+  let saveModal = document.querySelector(".save-modal");
+  saveModal.classList.add("is-active");
+   let saveOl = document.querySelector("#save-ol");
+  for(let i=0; i<savedArtists.length; i++ ) {
+    let saveListItem = document.createElement("li");
+    saveListItem.textContent=savedArtists[i]
+    saveOl.append(saveListItem)  
+  }  
+}) 
+
+let saveButton = document.querySelector("#save-button")
+saveButton.addEventListener("click", () =>{
+    let artistName = document.querySelector("#artist-name");
+    savedArtists.push(artistName.textContent)
+    localStorage.setItem("savedArtists", JSON.stringify(savedArtists));
+})
 ////Mobile Styling
 
 var burgerIcon = document.querySelector('#burger');
