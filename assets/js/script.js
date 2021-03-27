@@ -187,7 +187,11 @@ async function getAlbumInfo(requestURL) {
     resetTracklist();
     let response = await fetch(requestURL);
     let data = await response.json();
-    let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url, data.artists[0].name)
+    let artistName = data.artists[0].name
+    if(artistName.indexOf("(")!== -1){
+        artistName = artistName.slice(0, artistName.indexOf("("));
+    }
+    let albumInfo = new Album(data.title, data.year, data.tracklist, data.resource_url, artistName);
     albumInfo.displayTrackList(albumInfo);
     return albumInfo
 };
