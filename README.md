@@ -1,7 +1,7 @@
 # music-project
 
 ### Description
-The goal of the website is to make a one stop shop for music. We wanted to be able to look up artist and see the artist's profile and discography. Given their different discographies, we want to see the tracks of each album. We added a save button so that we can have a place to see our favorite artist.
+The goal of the website is to make a one stop shop for music. We wanted to be able to look up artist and see the artist's profile and discography. Given their different discographies, we want to see the tracks of each album. We added a save button so that we can have a place to see our favorite artist. Given the different tracks of the albums, we wanted to have a way to see the lyrics of the certain songs.
 
 ### User Story
 ```
