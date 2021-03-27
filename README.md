@@ -35,6 +35,9 @@ As shown above,
 * Track list of the selected album is shown on the left when one clicks an album title
     * Clicking on the track would pop a modal for the lyrics
 
+Example of Lyrics Shown:
+![Lyrics](assets/images/Lyrics.PNG)
+
 [Link to Website!](https://thebadams.github.io/music-project)
 
 ### Contributions
