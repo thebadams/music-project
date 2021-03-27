@@ -37,10 +37,10 @@
             <!-- Hidden Search Field-->
             <div class="is-hidden " id="searchCard">
                 <div class="card-content ">
-                 <input class="input is-large has-text-centered " type="text" placeholder="User Input Here">
+                 <input class="input is-large has-text-centered " type="text" placeholder="User Input Here" id = "hidden-search-input">
                 </div>
                 <footer class="card-footer">
-                    <div class="card-footer-item">
+                    <div class="card-footer-item" id = "hidden-search-btn">
                      <a class="button  is-success is-medium is-fullwidth">
                          <span class="icon-text">
                              <span class="icon">
@@ -57,6 +57,7 @@
         <div class="columns">
             <!-- First Column -->
 
+            <p id="saved-artists-link">Saved Artists</p>
             <div class="column is-hidden-touch">
                 <div class="card">
                     <div class="card-content">
@@ -102,15 +103,12 @@
                         </br>
 
                         <!--Image of artist-->
+
                         <figure class="image is-128x128" id = "image-container">
                         </figure>
-                        <a class="button is-medium is-success">
-                            <i class="fas fa-save" id="save-button"></i>
-                        </a>
-
-                        <a class="button is-medium is-success">
-                            <i class="fas fa-book" id="artist-storage"></i> Saved Artists
-                        </a>
+                        
+                        </br>
+                        <i class="fas fa-save" id="save-button"></i>
                         <div class="title is-4" id="artist-name">
                             
                         </div> 
@@ -155,7 +153,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title" id="save-title">Modal title</p>
+                <p class="modal-card-title" id="save-title">Saved Artist List</p>
                 <button class="delete save-dismiss" aria-label="close"></button>
             </header>
             <section class="modal-card-body">

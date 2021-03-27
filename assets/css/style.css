@@ -1,5 +1,8 @@
-/* @media screen and (max-width: 768px) {
-    main {
-        background-color: black;
-    }
-} */
+.input {
+    color: black;
+}
+
+.track-list-card {
+    margin-top: 10%;
+    padding: 2%;
+}

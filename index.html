@@ -14,9 +14,11 @@
   <section class="hero is-large is-danger is-mobile">
     <div class="hero body">
       <p class="title">
+
         <h1 class="title is-1 has-text-centered"> <i class=" fas fa-music"></i> Music Enthusiast’s Haven
           <i class=" fas fa-music"></i></h1>
         <h2 class="subtitle has-text-centered">The One-Stop Shop For Music Information</h2>
+
       </p>
     </div>
   </section>
@@ -31,7 +33,8 @@
     </div>
     <div class="navbar-menu" id="nav-links">
       <div class="navbar-end">
-        <a class="navbar-item" id="saved-artists-link">Saved Artists</a>
+
+        <a class="navbar-item" id = "saved-artists-link">Saved Artists</a>
       </div>
     </div>
   </nav>
@@ -56,6 +59,21 @@
       </footer>
     </div>
   </section>
+  <div class="modal save-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title" id="save-title">Saved Artists</p>
+        <button class="delete save-dismiss" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <ol id="save-ol">
+  
+        </ol>
+        <!-- Content ... -->
+      </section>
+    </div>
+  </div>
 
 <script src="./assets/js/api-keys.js"></script>
 <script src="./assets/js/start-page.js"></script>
