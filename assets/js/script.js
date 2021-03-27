@@ -228,6 +228,19 @@ searchBtn.addEventListener("click", (event)=>{
     let searchURL = `https://api.discogs.com/database/search?q=${searchInputValue}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
     getArtistInfo(searchURL)
 })
+let hiddenSearchBtn = document.querySelector("#hidden-search-btn");
+hiddenSearchBtn.addEventListener("click", (event)=>{
+    event.preventDefault();
+    let hiddenSearchInputValue = document.querySelector("#hidden-search-input").value
+    console.log(hiddenSearchInputValue)
+    if(!hiddenSearchInputValue){
+        console.error("Please Input a Search")
+        return
+    }
+    let searchURL = `https://api.discogs.com/database/search?q=${hiddenSearchInputValue}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
+    getArtistInfo(searchURL)
+})
+
 
 //modal logic
 let lyricsModalDismiss = document.querySelector(".lyrics-dismiss")
@@ -244,6 +257,7 @@ saveModalDismiss.addEventListener("click", ()=>{
 
 let savedArtistsLink = document.querySelector("#saved-artists-link")
 savedArtistsLink.addEventListener("click", ()=>{
+    resetSavedArtistsModal();
   let saveModal = document.querySelector(".save-modal");
   saveModal.classList.add("is-active");
    let saveOl = document.querySelector("#save-ol");
@@ -308,6 +322,15 @@ function resetTracklist() {
     if(trackListContent.childElementCount!==0) {
         for(let i = trackListContent.children.length-1; i>=0; i--){
             trackListContent.children[i].remove();
+        }
+    }
+}
+
+function resetSavedArtistsModal() {
+    let saveOl = document.querySelector("#save-ol")
+    if(saveOl.childElementCount!==0) {
+        for(let i = saveOl.children.length-1; i>=0; i--){
+            saveOl.children[i].remove();
         }
     }
 }
