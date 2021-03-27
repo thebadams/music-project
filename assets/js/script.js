@@ -260,6 +260,26 @@ function resetArtistInfo() {
             membersListDiv.children[i].remove()
         }
     }
+    let tableHeaderRow = document.querySelector("#table-header-row");
+    if(tableHeaderRow.childElementCount!==0) {
+        for(let i = tableHeaderRow.children.length-1; i>=0; i--){
+            tableHeaderRow.children[i].remove()
+        }
+    }
+    let discographyContent = document.querySelector("#discography-content")
+    if(discographyContent.childElementCount!==0) {
+        for(let i = discographyContent.children.length-1; i>=0; i--){
+            discographyContent.children[i].remove()
+        }
+    }
 
 }
 
+function resetTracklist() {
+    let trackListContent = document.querySelector("#track-list-content")
+    if(trackListContent.childElementCount!==0) {
+        for(let i = trackListContent.children.length-1; i>=0; i--){
+            trackListContent.children[i].remove();
+        }
+    }
+}
