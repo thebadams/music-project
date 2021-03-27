@@ -1,5 +1,6 @@
 //grab html elements
 let searchBtn = document.querySelector("#search-btn")
+let savedArtists = JSON.parse(localStorage.getItem("savedArtists")||"[]")
 
 //classes to construct to hold information
 //define class to hold artist information
@@ -95,13 +96,14 @@ class Song {
     }
     displayLyrics() {
         let lyricsModalContent = document.querySelector(".modal-card-body");
+        let lyricsTitle = document.querySelector("#lyrics-title");
         let lyricsModal = document.querySelector(".lyrics-modal");
         let regExp = /\n/;
         let lyricsArray = this.lyrics.split(regExp)
         console.log(lyricsArray)
         let lyricsString = lyricsArray.join("<br>")
-        console.log(lyricsString)
         lyricsModalContent.innerHTML = lyricsString;
+        lyricsTitle.textContent = this.title
         lyricsModal.classList.add("is-active")
     }
 }
