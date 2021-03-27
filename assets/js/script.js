@@ -244,6 +244,7 @@ saveModalDismiss.addEventListener("click", ()=>{
 
 let savedArtistsLink = document.querySelector("#saved-artists-link")
 savedArtistsLink.addEventListener("click", ()=>{
+    resetSavedArtistsModal();
   let saveModal = document.querySelector(".save-modal");
   saveModal.classList.add("is-active");
    let saveOl = document.querySelector("#save-ol");
@@ -308,6 +309,15 @@ function resetTracklist() {
     if(trackListContent.childElementCount!==0) {
         for(let i = trackListContent.children.length-1; i>=0; i--){
             trackListContent.children[i].remove();
+        }
+    }
+}
+
+function resetSavedArtistsModal() {
+    let saveOl = document.querySelector("#save-ol")
+    if(saveOl.childElementCount!==0) {
+        for(let i = saveOl.children.length-1; i>=0; i--){
+            saveOl.children[i].remove();
         }
     }
 }
