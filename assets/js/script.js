@@ -228,6 +228,19 @@ searchBtn.addEventListener("click", (event)=>{
     let searchURL = `https://api.discogs.com/database/search?q=${searchInputValue}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
     getArtistInfo(searchURL)
 })
+let hiddenSearchBtn = document.querySelector("#hidden-search-btn");
+hiddenSearchBtn.addEventListener("click", (event)=>{
+    event.preventDefault();
+    let hiddenSearchInputValue = document.querySelector("#hidden-search-input").value
+    console.log(hiddenSearchInputValue)
+    if(!hiddenSearchInputValue){
+        console.error("Please Input a Search")
+        return
+    }
+    let searchURL = `https://api.discogs.com/database/search?q=${hiddenSearchInputValue}&type=artist&key=${discogsKey}&secret=${discogsSecret}`
+    getArtistInfo(searchURL)
+})
+
 
 //modal logic
 let lyricsModalDismiss = document.querySelector(".lyrics-dismiss")
